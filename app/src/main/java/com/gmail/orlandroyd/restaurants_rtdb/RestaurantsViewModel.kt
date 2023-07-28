@@ -10,7 +10,10 @@ import kotlinx.coroutines.launch
 
 class RestaurantsViewModel() : ViewModel() {
 
-    private val repository = RestaurantsRepository()
+    private val getRestaurantsUseCase =
+        GetRestaurantsUseCase()
+    private val toggleRestaurantsUseCase =
+        ToggleRestaurantUseCase()
 
     private val _state = mutableStateOf(
         RestaurantsScreenState(
@@ -33,14 +36,14 @@ class RestaurantsViewModel() : ViewModel() {
     fun toggleFavorite(id: Int, oldValue: Boolean) {
         viewModelScope.launch(errorHandler) {
             val updatedRestaurants =
-                repository.toggleFavoriteRestaurant(id, oldValue)
+                toggleRestaurantsUseCase(id, oldValue)
             _state.value = _state.value.copy(restaurants = updatedRestaurants)
         }
     }
 
     private fun getRestaurants() {
         viewModelScope.launch(errorHandler) {
-            val restaurants = repository.getAllRestaurants()
+            val restaurants = getRestaurantsUseCase()
             _state.value = _state.value.copy(
                 restaurants = restaurants,
                 isLoading = false
