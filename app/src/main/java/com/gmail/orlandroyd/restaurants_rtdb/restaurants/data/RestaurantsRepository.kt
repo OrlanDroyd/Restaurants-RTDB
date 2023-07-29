@@ -1,7 +1,15 @@
-package com.gmail.orlandroyd.restaurants_rtdb
+package com.gmail.orlandroyd.restaurants_rtdb.restaurants.data
 
+import com.gmail.orlandroyd.restaurants_rtdb.RestaurantsApplication
+import com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.local.LocalRestaurant
+import com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.local.PartialLocalRestaurant
+import com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.local.RestaurantsDb
+import com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.remote.RestaurantsApiService
+import com.gmail.orlandroyd.restaurants_rtdb.restaurants.domain.Restaurant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,10 +17,14 @@ import java.net.ConnectException
 import java.net.UnknownHostException
 
 class RestaurantsRepository {
+    private val interceptor = HttpLoggingInterceptor()
+    private val okHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
     private var restInterface: RestaurantsApiService =
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://kickstartrestaurants-default-rtdb.firebaseio.com/")
+            .client(okHttpClient)
             .build()
             .create(RestaurantsApiService::class.java)
     private var restaurantsDao = RestaurantsDb.getDaoInstance(
@@ -24,7 +36,7 @@ class RestaurantsRepository {
         value: Boolean
     ) = withContext(Dispatchers.IO) {
         restaurantsDao.update(
-            PartialRestaurant(id = id, isFavorite = value)
+            PartialLocalRestaurant(id = id, isFavorite = value)
         )
     }
 
@@ -54,16 +66,29 @@ class RestaurantsRepository {
     private suspend fun refreshCache() {
         val remoteRestaurants = restInterface.getRestaurants()
         val favoriteRestaurants = restaurantsDao.getAllFavorited()
-        restaurantsDao.addAll(remoteRestaurants)
+        restaurantsDao.addAll(remoteRestaurants.map {
+            LocalRestaurant(
+                it.id,
+                it.title,
+                it.description,
+                false
+            )
+        })
         restaurantsDao.updateAll(
             favoriteRestaurants.map {
-                PartialRestaurant(it.id, true)
-            })
+                PartialLocalRestaurant(it.id, true)
+            }
+        )
     }
 
     suspend fun getRestaurants(): List<Restaurant> {
         return withContext(Dispatchers.IO) {
-            return@withContext restaurantsDao.getAll()
+            return@withContext restaurantsDao.getAll().map {
+                Restaurant(
+                    it.id, it.title,
+                    it.description, it.isFavorite
+                )
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.gmail.orlandroyd.restaurants_rtdb
+package com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.local
 
 
 import android.content.Context
@@ -8,8 +8,8 @@ import androidx.room.RoomDatabase
 
 
 @Database(
-    entities = [Restaurant::class],
-    version = 2,
+    entities = [LocalRestaurant::class],
+    version = 3,
     exportSchema = false
 )
 abstract class RestaurantsDb : RoomDatabase() {

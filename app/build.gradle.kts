@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.retrofit)
+    implementation(libs.logging.interceptor)
     implementation(libs.gson)
     implementation(libs.converter.gson)
     implementation(libs.navigation.compose)

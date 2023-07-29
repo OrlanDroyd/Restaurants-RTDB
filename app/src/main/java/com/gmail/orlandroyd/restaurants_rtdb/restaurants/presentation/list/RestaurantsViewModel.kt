@@ -1,9 +1,11 @@
-package com.gmail.orlandroyd.restaurants_rtdb
+package com.gmail.orlandroyd.restaurants_rtdb.restaurants.presentation.list
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gmail.orlandroyd.restaurants_rtdb.restaurants.domain.GetInitialRestaurantsUseCase
+import com.gmail.orlandroyd.restaurants_rtdb.restaurants.domain.ToggleRestaurantUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 

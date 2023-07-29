@@ -1,4 +1,6 @@
-package com.gmail.orlandroyd.restaurants_rtdb
+package com.gmail.orlandroyd.restaurants_rtdb.restaurants.domain
+
+import com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.RestaurantsRepository
 
 class ToggleRestaurantUseCase {
 
