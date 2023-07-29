@@ -29,7 +29,7 @@ class RestaurantsRepository {
     }
 
 
-    suspend fun getAllRestaurants(): List<Restaurant> {
+    suspend fun loadRestaurants() {
         return withContext(Dispatchers.IO) {
             try {
                 refreshCache()
@@ -48,7 +48,6 @@ class RestaurantsRepository {
                     else -> throw e
                 }
             }
-            return@withContext restaurantsDao.getAll()
         }
     }
 
@@ -60,5 +59,11 @@ class RestaurantsRepository {
             favoriteRestaurants.map {
                 PartialRestaurant(it.id, true)
             })
+    }
+
+    suspend fun getRestaurants(): List<Restaurant> {
+        return withContext(Dispatchers.IO) {
+            return@withContext restaurantsDao.getAll()
+        }
     }
 }

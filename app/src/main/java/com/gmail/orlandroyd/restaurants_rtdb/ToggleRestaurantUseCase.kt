@@ -1,8 +1,12 @@
 package com.gmail.orlandroyd.restaurants_rtdb
 
 class ToggleRestaurantUseCase {
+
     private val repository: RestaurantsRepository =
         RestaurantsRepository()
+
+    private val getSortedRestaurantsUseCase =
+        GetSortedRestaurantsUseCase()
 
     suspend operator fun invoke(
         id: Int,
@@ -10,6 +14,6 @@ class ToggleRestaurantUseCase {
     ): List<Restaurant> {
         val newFav = oldValue.not()
         repository.toggleFavoriteRestaurant(id, newFav)
-        return GetRestaurantsUseCase().invoke()
+        return getSortedRestaurantsUseCase()
     }
 }

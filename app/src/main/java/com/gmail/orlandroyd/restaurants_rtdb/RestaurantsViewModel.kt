@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 
 class RestaurantsViewModel() : ViewModel() {
 
-    private val getRestaurantsUseCase =
-        GetRestaurantsUseCase()
+    private val getInitialRestaurantsUseCase =
+        GetInitialRestaurantsUseCase()
     private val toggleRestaurantsUseCase =
         ToggleRestaurantUseCase()
 
@@ -43,7 +43,7 @@ class RestaurantsViewModel() : ViewModel() {
 
     private fun getRestaurants() {
         viewModelScope.launch(errorHandler) {
-            val restaurants = getRestaurantsUseCase()
+            val restaurants = getInitialRestaurantsUseCase()
             _state.value = _state.value.copy(
                 restaurants = restaurants,
                 isLoading = false
