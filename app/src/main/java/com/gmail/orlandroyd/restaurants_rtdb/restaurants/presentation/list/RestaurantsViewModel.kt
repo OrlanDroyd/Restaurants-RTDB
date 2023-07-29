@@ -6,16 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gmail.orlandroyd.restaurants_rtdb.restaurants.domain.GetInitialRestaurantsUseCase
 import com.gmail.orlandroyd.restaurants_rtdb.restaurants.domain.ToggleRestaurantUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class RestaurantsViewModel() : ViewModel() {
-
-    private val getInitialRestaurantsUseCase =
-        GetInitialRestaurantsUseCase()
-    private val toggleRestaurantsUseCase =
-        ToggleRestaurantUseCase()
+@HiltViewModel
+class RestaurantsViewModel @Inject constructor(
+    private val getInitialRestaurantsUseCase: GetInitialRestaurantsUseCase,
+    private val toggleRestaurantsUseCase: ToggleRestaurantUseCase,
+) : ViewModel() {
 
     private val _state = mutableStateOf(
         RestaurantsScreenState(

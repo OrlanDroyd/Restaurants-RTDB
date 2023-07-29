@@ -72,6 +72,11 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
+    // DI
+    implementation(libs.dagger.hilt.android)
+    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+    androidTestImplementation(libs.dagger.hilt.android.testing)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
