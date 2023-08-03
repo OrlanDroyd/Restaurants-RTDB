@@ -13,10 +13,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RestaurantsViewModel @Inject constructor(
-    private val getInitialRestaurantsUseCase: GetInitialRestaurantsUseCase,
-    private val toggleRestaurantsUseCase: ToggleRestaurantUseCase,
+    private val getRestaurantsUseCase: GetInitialRestaurantsUseCase,
+    private val toggleRestaurantsUseCase: ToggleRestaurantUseCase
 ) : ViewModel() {
-
     private val _state = mutableStateOf(
         RestaurantsScreenState(
             restaurants = listOf(),
@@ -45,7 +44,7 @@ class RestaurantsViewModel @Inject constructor(
 
     private fun getRestaurants() {
         viewModelScope.launch(errorHandler) {
-            val restaurants = getInitialRestaurantsUseCase()
+            val restaurants = getRestaurantsUseCase()
             _state.value = _state.value.copy(
                 restaurants = restaurants,
                 isLoading = false

@@ -2,9 +2,6 @@ package com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.local
 
 
 import androidx.room.*
-import com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.local.LocalRestaurant
-import com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.local.PartialLocalRestaurant
-
 
 @Dao
 interface RestaurantsDao {
@@ -15,10 +12,10 @@ interface RestaurantsDao {
     suspend fun addAll(restaurants: List<LocalRestaurant>)
 
     @Update(entity = LocalRestaurant::class)
-    suspend fun update(partialLocalRestaurant: PartialLocalRestaurant)
+    suspend fun update(partialRestaurant: PartialLocalRestaurant)
 
     @Update(entity = LocalRestaurant::class)
-    suspend fun updateAll(partialLocalRestaurants: List<PartialLocalRestaurant>)
+    suspend fun updateAll(partialRestaurants: List<PartialLocalRestaurant>)
 
     @Query("SELECT * FROM restaurants WHERE is_favorite = 1")
     suspend fun getAllFavorited(): List<LocalRestaurant>

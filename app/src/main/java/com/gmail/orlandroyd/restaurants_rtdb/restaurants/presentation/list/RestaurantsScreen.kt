@@ -28,13 +28,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gmail.orlandroyd.restaurants_rtdb.restaurants.domain.Restaurant
 
 @Composable
-fun RestaurantsScreen(onItemClick: (id: Int) -> Unit) {
-    val viewModel: RestaurantsViewModel = viewModel()
-    val state = viewModel.state.value
+fun RestaurantsScreen(
+    state: RestaurantsScreenState,
+    onItemClick: (id: Int) -> Unit,
+    onFavoriteClick: (id: Int, oldValue: Boolean) -> Unit
+) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
@@ -48,7 +49,7 @@ fun RestaurantsScreen(onItemClick: (id: Int) -> Unit) {
             items(state.restaurants) { restaurant ->
                 RestaurantItem(restaurant,
                     onFavoriteClick = { id, oldValue ->
-                        viewModel.toggleFavorite(id, oldValue)
+                        onFavoriteClick(id, oldValue)
                     },
                     onItemClick = { id -> onItemClick(id) })
             }
@@ -125,5 +126,6 @@ fun RestaurantDetails(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    RestaurantsScreen({})
+    RestaurantsScreen(RestaurantsScreenState(listOf(), true),
+        {}, { _, _ -> })
 }

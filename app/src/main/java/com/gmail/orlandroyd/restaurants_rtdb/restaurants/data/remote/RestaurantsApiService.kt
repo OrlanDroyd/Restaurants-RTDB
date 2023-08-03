@@ -1,9 +1,7 @@
 package com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.remote
 
-import com.gmail.orlandroyd.restaurants_rtdb.restaurants.data.remote.RemoteRestaurant
 import retrofit2.http.GET
 import retrofit2.http.Query
-
 
 interface RestaurantsApiService {
     @GET("restaurants.json")

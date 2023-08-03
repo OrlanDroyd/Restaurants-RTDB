@@ -2,7 +2,9 @@
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.org.jetbrains.kotlin.kapt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.dsl)
 }
 
 android {
@@ -74,7 +76,7 @@ dependencies {
     ksp(libs.room.compiler)
     // DI
     implementation(libs.dagger.hilt.android)
-    ksp(libs.dagger.hilt.compiler)
+    kapt(libs.dagger.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     androidTestImplementation(libs.dagger.hilt.android.testing)
 
