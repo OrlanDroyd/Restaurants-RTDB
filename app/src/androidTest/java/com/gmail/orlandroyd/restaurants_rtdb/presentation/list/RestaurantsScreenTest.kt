@@ -1,4 +1,4 @@
-package com.gmail.orlandroyd.restaurants_rtdb
+package com.gmail.orlandroyd.restaurants_rtdb.presentation.list
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
