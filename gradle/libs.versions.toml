@@ -20,7 +20,7 @@ room = "2.5.2"
 # DI
 dagger = "2.46.1"
 hilt = "1.0.0"
-hilt-dsl = "2.47"
+hilt-dsl = "2.48"
 kapt = "2.47"
 kotlinx-coroutines-test = "1.7.3"
 
