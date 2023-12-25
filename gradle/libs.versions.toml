@@ -1,7 +1,7 @@
 [versions]
 agp = "8.1.0"
 kotlin = "1.8.10"
-ksp = "1.8.10-1.0.9"
+ksp = "1.9.22-1.0.16"
 core-ktx = "1.9.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
