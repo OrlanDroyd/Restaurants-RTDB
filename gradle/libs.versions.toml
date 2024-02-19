@@ -22,7 +22,7 @@ dagger = "2.46.1"
 hilt = "1.0.0"
 hilt-dsl = "2.47"
 kapt = "2.47"
-kotlinx-coroutines-test = "1.7.3"
+kotlinx-coroutines-test = "1.8.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
